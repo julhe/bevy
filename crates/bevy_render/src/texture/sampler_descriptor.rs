@@ -37,8 +37,8 @@ impl Default for SamplerDescriptor {
 impl From<&Texture> for SamplerDescriptor {
     fn from(_texture: &Texture) -> Self {
         SamplerDescriptor {
-            address_mode_u: AddressMode::ClampToEdge,
-            address_mode_v: AddressMode::ClampToEdge,
+            address_mode_u: AddressMode::Repeat,
+            address_mode_v: AddressMode::Repeat,
             address_mode_w: AddressMode::ClampToEdge,
             mag_filter: FilterMode::Nearest,
             min_filter: FilterMode::Linear,

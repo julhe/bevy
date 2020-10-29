@@ -21,6 +21,7 @@ pub struct GltfLoader;
 impl AssetLoader<Mesh> for GltfLoader {
     fn from_bytes(&self, asset_path: &Path, bytes: Vec<u8>) -> Result<Mesh> {
         let mesh = load_gltf(asset_path, bytes)?;
+        println!("loaded gltf to mesh from {}", &asset_path.to_str().unwrap());
         Ok(mesh)
     }
 
@@ -97,6 +98,14 @@ fn load_node(buffer_data: &[Vec<u8>], node: &gltf::Node, depth: i32) -> Result<M
                 .read_tex_coords(0)
                 .map(|v| VertexAttribute::uv(v.into_f32().collect()))
             {
+                mesh.attributes.push(vertex_attribute);
+            }
+
+            if let Some(vertex_attribute) = reader
+                .read_colors(0)
+                .map(|v| VertexAttribute::colors(v.into_rgba_f32().collect()))
+            {
+                println!("readin colors {}", vertex_attribute.values.len());
                 mesh.attributes.push(vertex_attribute);
             }
 

@@ -71,6 +71,7 @@ impl VertexAttribute {
     pub const NORMAL: &'static str = "Vertex_Normal";
     pub const POSITION: &'static str = "Vertex_Position";
     pub const UV: &'static str = "Vertex_Uv";
+    pub const COLOR: &'static str = "Vertex_Color";
 
     pub fn position(positions: Vec<[f32; 3]>) -> Self {
         VertexAttribute {
@@ -90,6 +91,13 @@ impl VertexAttribute {
         VertexAttribute {
             name: Self::UV.into(),
             values: VertexAttributeValues::Float2(uvs),
+        }
+    }
+
+    pub fn colors(colors: Vec<[f32; 4]>) -> Self {
+        VertexAttribute {
+            name: Self::COLOR.into(),
+            values: VertexAttributeValues::Float4(colors),
         }
     }
 }
@@ -613,6 +621,7 @@ mod tests {
         let mut positions = Vec::new();
         let mut normals = Vec::new();
         let mut uvs = Vec::new();
+        let mut colors = Vec::new();
         for (position, normal, uv) in vertices.iter() {
             positions.push(*position);
             normals.push(*normal);
@@ -634,16 +643,19 @@ mod tests {
                 position: [0., 0., 0.],
                 normal: [1., 1., 1.],
                 uv: [2., 2.],
+                ..Default::default()
             },
             Vertex {
                 position: [3., 3., 3.],
                 normal: [4., 4., 4.],
                 uv: [5., 5.],
+                ..Default::default()
             },
             Vertex {
                 position: [6., 6., 6.],
                 normal: [7., 7., 7.],
                 uv: [8., 8.],
+                ..Default::default()
             },
         ];
 
